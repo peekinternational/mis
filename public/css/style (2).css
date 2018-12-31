@@ -1,0 +1,93 @@
+.navbar{
+    margin-bottom: 0;
+}
+  .custom .nav  li a:hover{
+    background-color: red;
+
+}
+#features {
+    background-color:beige;
+    padding-top: 25px;
+    
+   
+}
+#features p{
+    color: white;
+}
+
+#features h4{
+    color: white;
+}
+    
+.fb {
+    background-color:#0C3C60;
+    margin: 5px;
+    padding:25px 20px;
+}
+/* Team Section */
+
+
+
+#team-section {
+   
+   background-color:beige;
+	padding: 0px 0;
+    margin-top: 0px; 
+    margin-bottom: 5rem;
+   
+}
+.section-title.center {
+	padding: 30px 0;
+}
+.section-title h2 {
+	margin-bottom: 30px;
+}
+img.img-circle.team-img {
+	width: 150px;
+	height: 150px;
+	border: 4px solid transparent;
+	transition: all 0.5s;
+}
+#team-section .team .thumbnail:hover>img.img-circle.team-img {
+	border: 4px solid #fff;
+	font-size: medium;
+}
+#team-section .thumbnail {
+	background: transparent;
+	border: 0;
+}
+#team-section .thumbnail .caption {
+	padding: 9px;
+}
+
+
+/* CONTACT */
+.modal-header h4{
+    text-align: center;
+   margin-bottom: auto;
+   
+}
+
+.modal-body form{
+  text-align: center;    
+  background:#0C3C60;
+  color:#fff;
+  padding:20px;
+}
+
+.modal-body form input[type="text"]{
+  width:50%;
+  height:30px;
+  margin-bottom:10px;
+}
+
+.modal-body  form textarea{
+  width:50%;
+  height:30px;
+}
+
+
+
+.modal-body form label{
+  text-transform:uppercase;
+}

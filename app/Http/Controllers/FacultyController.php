@@ -1,0 +1,299 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Faculty;
+use App\EmployeeLogs;
+use Illuminate\Http\Request;
+use DB;
+
+class FacultyController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        if($request->session()->has('u_session')){
+            $facultyR = DB::table('facultyInfo')->select('id', 'name')->get();
+            $showFacultyLogs = DB::table('employee_logs')
+            ->select('employee_logs.*', 'facultyInfo.name')
+            ->join('facultyInfo', 'facultyInfo.id', '=', 'employee_logs.faculty_id')
+            ->paginate(10);
+
+            // dd($showFacultyLogs);
+       
+            return View('adminView.emplyeeLogs',compact('facultyR', 'showFacultyLogs'));
+        }else{
+            redirect('/');
+        }    
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Faculty  $faculty
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Faculty $faculty)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Faculty  $faculty
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Faculty $faculty)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Faculty  $faculty
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Faculty $faculty)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Faculty  $faculty
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Faculty $faculty)
+    {
+        //
+    }
+
+
+    // Faculty Info
+    public function facultyInfo(Request $request)
+    {
+        if($request->session()->has('u_session')){
+            $facultyData = $request->all();
+
+            $facltyInfo = DB::table('facultyInfo')->insert($facultyData);
+            $facultyRrd = DB::table('facultyInfo')->paginate(10);
+            $request->session()->put('faculty', 'Faculty Info Saved Successfully;');
+            return view('adminView.employeeInfo',compact('facultyRrd'));
+        }else{
+            return redirect('/');
+        } 
+
+    }
+
+
+    public function showFacultyInfo(Request $request)
+    {
+        if($request->session()->has('u_session')){
+            $facultyRrd = DB::table('facultyInfo')->paginate(10);
+            // dd($facultyR);
+            return View('adminView.employeeInfo',compact('facultyRrd'));
+        }else{
+            redirect('/');
+        }    
+    }
+
+
+    public function deleteFacultyInfo(Request $request, $id)
+    {
+        if($request->session()->has('u_session')){
+            $facultyDelete = DB::table('facultyInfo')->where('id', $id)->delete();
+            // dd($facultyDelete);
+            echo $facultyDelete;
+        }else{
+            return redirect('/adminView/employeeInfo');
+        }        
+    }
+
+
+
+    public function fetchFaculty(Request $request)
+    {
+        if($request->session()->has('u_session')){
+            $facultyR = DB::table('facultyInfo')->select('id', 'name')->get();
+
+            $showReward = DB::table('faculty_rewards')
+            ->select('faculty_rewards.*', 'facultyInfo.name')
+            ->join('facultyInfo', 'faculty_rewards.faculty_id', '=', 'facultyInfo.id')
+            ->paginate(10);
+
+            // dd($showReward);
+        
+            return View('adminView.employeeReward',compact('facultyR', 'showReward'));
+        }else{
+            redirect('/');
+        } 
+    }
+
+
+    public function facultyReward(Request $request)
+    {
+        if($request->session()->has('u_session')){
+            $facultyRewrd = $request->all();
+            $facultyR = DB::table('facultyInfo')->select('id', 'name')->get();
+            $rewardInfo = DB::table('faculty_rewards')->insert($facultyRewrd);
+            $showReward = DB::table('faculty_rewards')
+            ->select('faculty_rewards.*', 'facultyInfo.name')
+            ->join('facultyInfo', 'faculty_rewards.faculty_id', '=', 'facultyInfo.id')
+            ->paginate(10);
+            $request->session()->put('reward', 'Reward/Punishment info Saved Successfully;');
+            return view('adminView.employeeReward', compact('facultyR', 'showReward'));
+        }else{
+            return redirect('/');
+        } 
+
+    }
+
+
+    public function deleteRewardRecord(Request $request, $id)
+    {
+        if($request->session()->has('u_session')){
+            $rewardDelete = DB::table('faculty_rewards')->where('id', $id)->delete();
+            // dd($facultyDelete);
+            echo $rewardDelete;
+        }else{
+            return redirect('/adminView/employeeReward');
+        } 
+    }
+
+    public function facultyLogs(Request $request)
+    {
+        if($request->session()->has('u_session')){
+            $empLogs = $request->all();
+            // dd($empLogs);
+            $LogData = DB::table('employee_logs')->insert($empLogs);
+            $request->session()->put('logs', 'Employee Logs Saved Successfully;');
+            $facultyR = DB::table('facultyInfo')->select('id', 'name')->get();
+            $showFacultyLogs = DB::table('employee_logs')
+            ->select('employee_logs.*', 'facultyInfo.name')
+            ->join('facultyInfo', 'facultyInfo.id', '=', 'employee_logs.faculty_id')
+            ->paginate(10);
+            return view('adminView.emplyeeLogs',compact('facultyR', 'showFacultyLogs')); 
+        }else{
+            redirect('/');
+        }    
+    }
+
+    public function deleteEmployeeLogs(Request $request, $id)
+    {
+        if($request->session()->has('u_session')){
+            $rewardDelete = DB::table('employee_logs')->where('id', $id)->delete();
+            // dd($facultyDelete);
+            echo $rewardDelete;
+        }else{
+            return redirect('/adminView/emplyeeLogs');
+        } 
+    }
+
+
+    public function showtotalRatio(Request $request)
+    {
+        if ($request->session()->has('u_session')) {
+            $showRatio = DB::table('total_ratios')->paginate(10);
+
+            // dd($showRatio);
+            return view('adminView.studentTratio',compact('showRatio'));
+        }else{
+            return redirect('/');
+        }
+    }
+
+    public function deleteTotalRatio(Request $request,$id)
+    {
+        if($request->session()->has('u_session')){
+            $rewardDelete = DB::table('total_ratios')->where('id', $id)->delete();
+            // dd($facultyDelete);
+            echo $rewardDelete;
+        }else{
+            return redirect('/adminView/studentTratio');
+        } 
+    }
+
+    public function totalRatio(Request $request)
+    {
+        if($request->session()->has('u_session')){
+            $ratioTs = $request->all();
+
+            $ratioInfo = DB::table('total_ratios')->insert($ratioTs);
+            $showRatio = DB::table('total_ratios')->paginate(10);
+            $request->session()->put('ratio', 'Data Saved Successfully;');
+            return view('adminView.studentTratio', compact('showRatio'));
+        }else{
+            redirect('/');
+        } 
+
+    }
+
+
+    public function showCommunicationTools(Request $request)
+    {
+        if ($request->session()->has('u_session')) {
+            $showTools = DB::table('communication_tools')->paginate(10);
+
+            // dd($showTools);
+            return view('adminView.communicationTools',compact('showTools'));
+        }else{
+            return redirect('/');
+        }
+    }
+
+
+    public function deleteCommunicationTools(Request $request, $id)
+    {
+        if($request->session()->has('u_session')){
+            $rewardDelete = DB::table('communication_tools')->where('id', $id)->delete();
+            // dd($facultyDelete);
+            echo $rewardDelete;
+        }else{
+            return redirect('/adminView/studentTratio');
+        }
+    }
+
+
+    public function communicationTools(Request $request)
+    {
+        if($request->session()->has('u_session')){
+            $commTools = $request->all();
+
+            $comInfo = DB::table('communication_tools')->insert($commTools);
+            $showTools = DB::table('communication_tools')->paginate(10);
+            $request->session()->put('communication', 'Data Saved Successfully;');
+            return view('adminView.communicationTools',compact('showTools')); 
+        }else{
+            redirect('/');
+        }    
+    }
+}
