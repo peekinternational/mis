@@ -5,19 +5,12 @@
 	<div class="container">
 		<div class="main row">
 			<div class="col-md-12">
-				<!-- Student Registration Form -->
-				@if(session()->has('register'))
-				<div class="alert alert-success">
-					<a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
-					{{session()->get('register')}}
-				</div>
-				@endif
+				
 				<div class="box box-primary" id="recordForm">
 				    <h3 class="box-title"><strong>Personal Record</strong></h3>
 				  <!-- form start --><br>
 				  <form role="form" method="Post" action="{{url('adminView/studentRegistration')}}" class="registrationForm" enctype="multipart/form-data">
 				  	{{ csrf_field() }}
-				    @foreach($studentInfo as $stdRecord)
 				    <div class="box-body student-register">
 				      <!-- <div  class="form-group col-md-6">
 				        <label for="stdId">Student ID</label>
@@ -145,7 +138,6 @@
 				        <input type="text" class="form-control" id="guardianAddress" name="guardianAddress" value="{{$stdRecord->guardianAddress}}" placeholder="Address">
 				      </div>
 				    </div><!-- /.box-body -->
-				    @endforeach
 
 				    <div class="box-footer">
 				      <button type="submit" class="fa-btn btn-1 btn-1e">Submit</button>

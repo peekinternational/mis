@@ -90,6 +90,8 @@ Route::group(['prefix' => '/adminView'], function(){
 	Route::post('/faculty_info', 'FacultyController@facultyInfo');
 	Route::match(['Post', 'get'], '/employeeInfo', 'FacultyController@showFacultyInfo');
 	Route::get('delete_employeeInfo/{id}', 'FacultyController@deleteFacultyInfo');
+	Route::get('edit-employeeInfo/{id}', 'FacultyController@editfaultyRecord');
+	Route::post('/employeeInfo', 'FacultyController@upadteFacultyInfo');
 	// Route::get('/employeeInfo', function () {
 	//     return view('adminView.employeeInfo');
 	// });
@@ -99,21 +101,25 @@ Route::group(['prefix' => '/adminView'], function(){
 	Route::post('/faculty_reward', 'FacultyController@facultyReward');
 	Route::get('/employeeReward', 'FacultyController@fetchFaculty');
 	Route::get('/delete_reward/{id}', 'FacultyController@deleteRewardRecord');
+	Route::get('edit-employeeReward/{id}', 'FacultyController@editfaultyReward');
 	// Route::get('/employeeReward', function () {
 	//     return view('adminView.employeeReward');
 	// });
 	Route::get('/employeePerformance', function () {
 	    return view('adminView.employeePerformance');
 	});
+	Route::post('/employee_log', 'FacultyController@facultyLogs');
 	Route::get('/delete_employeeLogs/{id}', 'FacultyController@deleteEmployeeLogs');
 	Route::match(['Post', 'get'],'/emplyeeLogs', 'FacultyController@index');
+	Route::get('edit-employeeLogs/{id}', 'FacultyController@editEmployeeLogs');
 	// Route::get('/emplyeeLogs', function () {
 	//     return view('adminView.emplyeeLogs');
 	// });
-	Route::post('/employee_log', 'FacultyController@facultyLogs');
+	
 	Route::post('/ratio', 'FacultyController@totalRatio');
 	Route::get('/studentTratio', 'FacultyController@showtotalRatio');
 	Route::get('/delete_Ratio/{id}', 'FacultyController@deleteTotalRatio');
+	Route::get('edit-ratio/{id}', 'FacultyController@edit_totalRatio');
 	// Route::get('/studentTratio', function () {
 	//     return view('adminView.studentTratio');
 	// });
@@ -136,6 +142,7 @@ Route::group(['prefix' => '/adminView'], function(){
 	Route::post('/communication_tools', 'FacultyController@communicationTools');
 	Route::get('/communicationTools', 'FacultyController@showCommunicationTools');
 	Route::get('/delete_communicationTools/{id}', 'FacultyController@deleteCommunicationTools');
+	Route::get('edit-communicationTools/{id}', 'FacultyController@edit_communTools');
 	// Route::get('/communicationTools', function () {
 	//     return view('adminView.communicationTools');
 	// });

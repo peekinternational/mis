@@ -100,7 +100,21 @@ class SchedulingController extends Controller
         }
     }
 
+    public function edit_communTools(Request $request, $id)
+    {
+      // dd($id);
+      if($request->session()->has('u_session')){
 
+       // dd($userinfo);
+       $data=DB::table('communication_tools')->where('id', $id)->first();
+        return view('adminView.edit-communicationTools',compact('data'));
+      }else {
+        return redirect('/accounts/login');
+      }
+
+    } 
+
+    
     public function showSchoolCouncil(Request $request)
     {
         if ($request->session()->has('u_session')) {

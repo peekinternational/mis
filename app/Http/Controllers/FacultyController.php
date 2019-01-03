@@ -114,7 +114,6 @@ class FacultyController extends Controller
 
     }
 
-
     public function showFacultyInfo(Request $request)
     {
         if($request->session()->has('u_session')){
@@ -126,7 +125,6 @@ class FacultyController extends Controller
         }    
     }
 
-
     public function deleteFacultyInfo(Request $request, $id)
     {
         if($request->session()->has('u_session')){
@@ -137,8 +135,35 @@ class FacultyController extends Controller
             return redirect('/adminView/employeeInfo');
         }        
     }
+    // Upadte faculty Info
+    public function editfaultyRecord(Request $request, $id)
+    {
+
+       if($request->session()->has('u_session')){
+
+         // dd($userinfo);
+         // $user_get=DB::table('facultyInfo')->where('id',$id)->first();
+         $staffInfo=DB::table('facultyInfo')->where('id',$id)->first();
+         // dd($staffInfo);
+         return view('adminView.edit-employeeInfo',compact('staffInfo'));
+       }else {
+         return redirect('/accounts/login');
+       }
+
+    }
 
 
+    public function upadteFacultyInfo(Request $request)
+    {
+
+        $sid = $request->input('id');
+
+        $updatemployee = $request->all();
+        // dd($updatemployee);
+
+        $user_info=DB::table('facultyInfo')->where('id',$sid)->update($updatemployee);
+        return redirect('/adminView/employeeInfo');
+    }
 
     public function fetchFaculty(Request $request)
     {
@@ -158,25 +183,51 @@ class FacultyController extends Controller
         } 
     }
 
-
     public function facultyReward(Request $request)
     {
         if($request->session()->has('u_session')){
-            $facultyRewrd = $request->all();
-            $facultyR = DB::table('facultyInfo')->select('id', 'name')->get();
-            $rewardInfo = DB::table('faculty_rewards')->insert($facultyRewrd);
-            $showReward = DB::table('faculty_rewards')
-            ->select('faculty_rewards.*', 'facultyInfo.name')
-            ->join('facultyInfo', 'faculty_rewards.faculty_id', '=', 'facultyInfo.id')
-            ->paginate(10);
-            $request->session()->put('reward', 'Reward/Punishment info Saved Successfully;');
-            return view('adminView.employeeReward', compact('facultyR', 'showReward'));
+          $id = $request->input('id');
+            
+              $facultyRewrd = $request->all();
+              $facultyR = DB::table('facultyInfo')->select('id', 'name')->get();
+
+              if ($id == '') {
+                $rewardInfo = DB::table('faculty_rewards')->insert($facultyRewrd);
+
+                $request->session()->put('reward', 'Reward/Punishment info Saved Successfully;');
+              }else{
+                $user_info=DB::table('faculty_rewards')->where('id',$id)->update($facultyRewrd);
+
+                $request->session()->put('reward', 'Record updated Successfully;');
+              }
+
+              $showReward = DB::table('faculty_rewards')
+                ->select('faculty_rewards.*', 'facultyInfo.name')
+                ->join('facultyInfo', 'faculty_rewards.faculty_id', '=', 'facultyInfo.id')
+                ->paginate(10);
+              return view('adminView.employeeReward', compact('facultyR', 'showReward'));
+              
         }else{
             return redirect('/');
         } 
 
     }
 
+    public function editfaultyReward(Request $request, $id)
+    {
+      // dd($id);
+       if($request->session()->has('u_session')){
+
+         // dd($userinfo);
+         $rewardData=DB::table('faculty_rewards')
+              ->leftjoin('facultyInfo', 'faculty_rewards.faculty_id', '=', 'facultyInfo.id')
+              ->select('faculty_rewards.*', 'facultyInfo.name')->where('faculty_rewards.id', '=', $id)->first();
+         return view('adminView.edit-employeeReward',compact('rewardData'));
+       }else {
+         return redirect('/accounts/login');
+       }
+
+    }
 
     public function deleteRewardRecord(Request $request, $id)
     {
@@ -192,19 +243,43 @@ class FacultyController extends Controller
     public function facultyLogs(Request $request)
     {
         if($request->session()->has('u_session')){
+          $id = $request->input('id');
             $empLogs = $request->all();
             // dd($empLogs);
-            $LogData = DB::table('employee_logs')->insert($empLogs);
-            $request->session()->put('logs', 'Employee Logs Saved Successfully;');
+            if($id == ''){
+              $LogData = DB::table('employee_logs')->insert($empLogs);
+              $request->session()->put('logs', 'Employee Logs Saved Successfully;');
+            }else{
+              // dd($id);
+              $logs_update=DB::table('employee_logs')->where('id',$id)->update($empLogs);
+              $request->session()->put('logs', 'Employee Logs updated Successfully;');
+            }
+            
             $facultyR = DB::table('facultyInfo')->select('id', 'name')->get();
             $showFacultyLogs = DB::table('employee_logs')
             ->select('employee_logs.*', 'facultyInfo.name')
             ->join('facultyInfo', 'facultyInfo.id', '=', 'employee_logs.faculty_id')
             ->paginate(10);
-            return view('adminView.emplyeeLogs',compact('facultyR', 'showFacultyLogs')); 
+            return redirect('adminView/emplyeeLogs'); 
         }else{
             redirect('/');
         }    
+    }
+
+    public function editEmployeeLogs(Request $request, $id)
+    {
+      // dd($id);
+      if($request->session()->has('u_session')){
+
+       // dd($userinfo);
+       $logsData=DB::table('employee_logs')
+            ->leftjoin('facultyInfo', 'employee_logs.faculty_id', '=', 'facultyInfo.id')
+            ->select('employee_logs.*', 'facultyInfo.name')->where('employee_logs.id', '=', $id)->first();
+        return view('adminView.edit-employeeLogs',compact('logsData'));
+      }else {
+        return redirect('/accounts/login');
+      }
+
     }
 
     public function deleteEmployeeLogs(Request $request, $id)
@@ -218,6 +293,26 @@ class FacultyController extends Controller
         } 
     }
 
+    public function totalRatio(Request $request)
+    {
+        if($request->session()->has('u_session')){
+          $id = $request->input('id');
+          $ratioTs = $request->all();
+          if($id == ''){
+            $ratioInfo = DB::table('total_ratios')->insert($ratioTs);
+            $request->session()->put('ratio', 'Data Saved Successfully;');
+          }else{
+            $update_data = DB::table('total_ratios')->where('id', $id)->update($ratioTs);
+            $request->session()->put('ratio', 'Data Updated Successfully;');
+          }
+          
+          $showRatio = DB::table('total_ratios')->paginate(10);
+          return redirect('adminView/studentTratio');
+        }else{
+            redirect('/');
+        } 
+
+    }
 
     public function showtotalRatio(Request $request)
     {
@@ -231,6 +326,20 @@ class FacultyController extends Controller
         }
     }
 
+    public function edit_totalRatio(Request $request, $id)
+    {
+      // dd($id);
+      if($request->session()->has('u_session')){
+
+       // dd($userinfo);
+       $data=DB::table('total_ratios')->where('id', '=', $id)->first();
+        return view('adminView.edit-ratio',compact('data'));
+      }else {
+        return redirect('/accounts/login');
+      }
+
+    }
+
     public function deleteTotalRatio(Request $request,$id)
     {
         if($request->session()->has('u_session')){
@@ -242,21 +351,39 @@ class FacultyController extends Controller
         } 
     }
 
-    public function totalRatio(Request $request)
+    public function communicationTools(Request $request)
     {
         if($request->session()->has('u_session')){
-            $ratioTs = $request->all();
-
-            $ratioInfo = DB::table('total_ratios')->insert($ratioTs);
-            $showRatio = DB::table('total_ratios')->paginate(10);
-            $request->session()->put('ratio', 'Data Saved Successfully;');
-            return view('adminView.studentTratio', compact('showRatio'));
+          $id = $request->input('id');
+            $commTools = $request->all();
+            if($id == ''){
+              $comInfo = DB::table('communication_tools')->insert($commTools);
+              $request->session()->put('communication', 'Data Saved Successfully;');
+            }else{
+              $editInfo = DB::table('communication_tools')->where('id', $id)->update($commTools);
+              $request->session()->put('communication', 'Data Updated Successfully;');
+            }
+            
+            $showTools = DB::table('communication_tools')->paginate(10);
+            return redirect('adminView/communicationTools'); 
         }else{
             redirect('/');
-        } 
-
+        }    
     }
 
+    public function edit_communTools(Request $request, $id)
+    {
+      // dd($id);
+      if($request->session()->has('u_session')){
+
+       // dd($userinfo);
+       $data=DB::table('communication_tools')->where('id', $id)->first();
+        return view('adminView.edit-communicationTools',compact('data'));
+      }else {
+        return redirect('/accounts/login');
+      }
+
+    } 
 
     public function showCommunicationTools(Request $request)
     {
@@ -282,18 +409,4 @@ class FacultyController extends Controller
         }
     }
 
-
-    public function communicationTools(Request $request)
-    {
-        if($request->session()->has('u_session')){
-            $commTools = $request->all();
-
-            $comInfo = DB::table('communication_tools')->insert($commTools);
-            $showTools = DB::table('communication_tools')->paginate(10);
-            $request->session()->put('communication', 'Data Saved Successfully;');
-            return view('adminView.communicationTools',compact('showTools')); 
-        }else{
-            redirect('/');
-        }    
-    }
 }

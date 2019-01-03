@@ -34,7 +34,7 @@
                     <td>{{$ratio->totalTeachers}}</td>
                     <td>{{$ratio->ratio}}</td>
                     <td>
-                      <a href=""><i class="fa fa-pencil"></i></a> &nbsp;
+                      <a href="{{url('adminView/edit-ratio/'.$ratio->id)}}"><i class="fa fa-pencil"></i></a> &nbsp;
                       <a href="" data-toggle="modal" onclick="delete_totalRatio('{{$ratio->id}}');"><i class="fa fa-trash text-danger"></i></a>
                     </td>
                   </tr>

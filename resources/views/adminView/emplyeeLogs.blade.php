@@ -13,7 +13,7 @@
         </div>
         @endif
         <!-- View -->
-        <h3><strong>Employee Rewards</strong><button class="fa-btn btn-1 btn-1e circle-btn-add pull-right" id="addLogs"><i class="fa fa-plus"></i></button></h3><br>
+        <h3><strong>Employee Logs</strong><button class="fa-btn btn-1 btn-1e circle-btn-add pull-right" id="addLogs"><i class="fa fa-plus"></i></button></h3><br>
         <div class="table-responsive" style="display: block; overflow-x: auto; white-space: nowrap; border:1px solid lightgray;">
           <table class="table table-hover stdnt-table">
             <thead>
@@ -52,7 +52,7 @@
                     <td>{{$logsRecrd->taskStatus}}</td>
                     <td>{{$logsRecrd->comments}}</td>
                     <td>
-                      <a href=""><i class="fa fa-pencil"></i></a> &nbsp;
+                      <a href="{{url('/adminView/edit-employeeLogs/'.$logsRecrd->id)}}"><i class="fa fa-pencil"></i></a> &nbsp;
                       <a href="" data-toggle="modal" onclick="delete_logsRecord('{{$logsRecrd->id}}');"><i class="fa fa-trash text-danger"></i></a>
                     </td>
                   </tr>
