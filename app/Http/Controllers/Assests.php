@@ -169,17 +169,35 @@ class Assests extends Controller
     public function booksIssued(Request $request)
     {
         if($request->session()->has('u_session')){
-            $issueBook  = $request->all();
-
+          $id = $request->input('id');
+          $issueBook  = $request->all();
+          if($id == ''){
             $insertIssuedBook = DB::table('issued_books')->insert($issueBook);
-            $showIssuedBook = DB::table('issued_books')->paginate(10);
             $request->session()->put('issuedBook', 'Data saved Successfully');
-            return view('adminView.issuedBooks', compact('showIssuedBook'));
+          }else{
+            $insertIssuedBook = DB::table('issued_books')->where('id', $id)->update($issueBook);
+            $request->session()->put('issuedBook', 'Data updated Successfully');
+          }
+          $showIssuedBook = DB::table('issued_books')->paginate(10);
+          return redirect('adminView/issuedBooks');
         }else{
             redirect('/');
         }
     }
 
+    public function edit_booksIssued(Request $request, $id)
+    {
+      // dd($id);
+      if($request->session()->has('u_session')){
+
+       $data=DB::table('issued_books')->where('id', $id)->first();
+       // dd($data);
+        return view('adminView.edit-issuedbooks',compact('data'));
+      }else {
+        return redirect('/accounts/login');
+      }
+
+    }
 
     public function showBooksIssued(Request $request)
     {
@@ -208,17 +226,38 @@ class Assests extends Controller
     public function booksList(Request $request)
     {
         if($request->session()->has('u_session')){
+          $id = $request->input('id');
             $listBooks  = $request->all();
 
-            $insertBooksList = DB::table('book_lists')->insert($listBooks);
+            if($id == ''){
+              $insertBooksList = DB::table('book_lists')->insert($listBooks);
+              $request->session()->put('bookList', 'Data saved Successfully');
+            }else{
+              $updateBooksList = DB::table('book_lists')->where('id', $id)->update($listBooks);
+              $request->session()->put('bookList', 'Data updated Successfully');
+            }
+
             $showList = DB::table('book_lists')->paginate(10);
-            $request->session()->put('bookList', 'Data saved Successfully');
-            return view('adminView.booksList',  compact('showList'));
+            return redirect('adminView/booksList');
         }else{
             redirect('/');
         }
     }
 
+    public function edit_booklist(Request $request, $id)
+    {
+      // dd($id);
+      if($request->session()->has('u_session')){
+
+       // dd($userinfo);
+       $data=DB::table('book_lists')->where('id', $id)->first();
+       // dd($data);
+        return view('adminView.edit-booklist',compact('data'));
+      }else {
+        return redirect('/accounts/login');
+      }
+
+    }
 
     public function showBooksList(Request $request)
     {

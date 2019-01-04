@@ -151,13 +151,15 @@ Route::group(['prefix' => '/adminView'], function(){
 	});
 	Route::post('/teacher_timeTable', 'SchedulingController@teacherTimeTable');
 	Route::get('/teacherTimeTable', 'SchedulingController@showTeacherTimeTable');
-	Route::get('/delete_teacherTimeTable/{id}', 'SchedulingController@deleteTeacherTimeTable');
+	Route::get('/delete_teacherTimeTable/{id}', 'SchedulingController@deleteTeacherTimeTable');	
+	Route::get('/edit-teacherTime-table/{id}', 'SchedulingController@edit_teacherTimeTable');
 	// Route::get('/teacherTimeTable', function () {
 	//     return view('adminView.teacherTimeTable');
 	// });
 	Route::post('/class_TimeTable', 'SchedulingController@classTimeTable');
 	Route::get('/classTimeTable', 'SchedulingController@showClassTimeTable');
-	Route::get('/delete_classTimeTable/{id}', 'SchedulingController@deleteClassTimeTable');
+	Route::get('/delete_classTimeTable/{id}', 'SchedulingController@deleteClassTimeTable');	
+	Route::get('/edit-classTime-table/{id}', 'SchedulingController@edit_classTimeTable');
 	// Route::get('/classTimeTable', function () {
 	//     return view('adminView.classTimeTable');
 	// });
@@ -170,12 +172,14 @@ Route::group(['prefix' => '/adminView'], function(){
 	Route::post('/school_council', 'SchedulingController@schoolCouncil');
 	Route::get('/schoolCouncil', 'SchedulingController@showSchoolCouncil');
 	Route::get('/delete_schoolCouncil/{id}', 'SchedulingController@deleteSchoolCouncil');
+	Route::get('/edit-schoolCouncil/{id}', 'SchedulingController@edit_schoolCouncil');
 	// Route::get('/schoolCouncil', function () {
 	//     return view('adminView.schoolCouncil');
 	// });
 	Route::post('/meeting_minutes', 'SchedulingController@meetingMinute');
 	Route::get('/meetingMinutes', 'SchedulingController@showMeetingMinutes');
-	Route::get('/delete_meetingMinutes/{id}', 'SchedulingController@deleteMeetingMinutes');
+	Route::get('/delete_meetingMinutes/{id}', 'SchedulingController@deleteMeetingMinutes');	
+	Route::get('/edit-meetingMinutes/{id}', 'SchedulingController@edit_meetingMinute');
 	// Route::get('/meetingMinutes', function () {
 	//     return view('adminView.meetingMinutes');
 	// });
@@ -192,13 +196,15 @@ Route::group(['prefix' => '/adminView'], function(){
 	// });
 	Route::post('/book_list', 'Assests@booksList');
 	Route::get('/booksList', 'Assests@showBooksList');
-	Route::get('/delete_booklist/{id}', 'Assests@deleteBooksList');
+	Route::get('/delete_booklist/{id}', 'Assests@deleteBooksList');	
+	Route::get('/edit-booklist/{id}', 'Assests@edit_booklist');
 	// Route::get('/booksList', function () {
 	//     return view('adminView.booksList');
 	// });
 	Route::post('/issued_book', 'Assests@booksIssued');
 	Route::get('/issuedBooks', 'Assests@showBooksIssued');
 	Route::get('/delete_issuedBooks/{id}', 'Assests@deleteBooksIssued');
+	Route::get('/edit-issuedbooks/{id}', 'Assests@edit_booksIssued');
 	// Route::get('/issuedBooks', function () {
 	//     return view('adminView.issuedBooks');
 	// });
@@ -213,6 +219,7 @@ Route::group(['prefix' => '/adminView'], function(){
 	Route::post('/reconsile_statement', 'BudgetController@reconsileStatement');
 	Route::get('/reconsileStatement', 'BudgetController@showReconsileStatement');
 	Route::get('/delete_reconcileStatement/{id}', 'BudgetController@deleteReconsileStatement');
+	Route::get('/edit-statement/{id}', 'BudgetController@edit_reconsileStatement');
 	// Route::get('/reconsileStatement', function () {
 	//     return view('adminView.reconsileStatement');
 	// });
@@ -220,57 +227,68 @@ Route::group(['prefix' => '/adminView'], function(){
 	Route::post('/salary_budget', 'BudgetController@salaryBudget');
 
 	Route::get('/delete_salaryBudget/{id}', 'BudgetController@deleteSalaryBudget');
-	Route::post('/excess_budget', 'BudgetController@excessBudget');
-	Route::post('/contingent_budget', 'BudgetController@contingentBudget');
-     Route::get('/delete_salarybudget/{id}','BudgetController@deleteSalaryBudget');
-	Route::get('/delete_ExcessBudget/{id}','BudgetController@deleteExcessBudget');
-	Route::post('/excess_budget', 'BudgetController@excessBudget');
-	Route::post('/contingent_budget', 'BudgetController@contingentBudget');
-	Route::get('/delete_Contingentbudget/{id}', 'BudgetController@deleteContingentBudget');
+	Route::get('/edit-salarybudget/{id}', 'BudgetController@edit_salaryBuget');
 
+	Route::post('/excess_budget', 'BudgetController@excessBudget');
+	Route::post('/contingent_budget', 'BudgetController@contingentBudget');
+ 	Route::get('/delete_salarybudget/{id}','BudgetController@deleteSalaryBudget');
+	Route::get('/delete_ExcessBudget/{id}','BudgetController@deleteExcessBudget');
+	Route::get('/edit-excessBudget/{id}', 'BudgetController@edit_excessBuget');
+	Route::get('/delete_Contingentbudget/{id}', 'BudgetController@deleteContingentBudget');
+	Route::get('/edit-contingentBudget/{id}', 'BudgetController@edit_contgBuget');
 
 
 	// Route::get('/budgetUtilized', function () {
 	//     return view('adminView.budgetUtilized');
 	// });
+
+	// Route::get('/nSbBudget', function () {
+	//     return view('adminView.nSbBudget');
+	// });
+	// Route::get('/donations', function () {
+	//     return view('adminView.donations');
+	// });
+	Route::post('/procurement_Document', 'BudgetController@procurementDocumnt');
+	Route::get('/procurementDocument', 'BudgetController@show_procDetails');
+	Route::get('/delete_proDoc/{id}', 'BudgetController@delete_procurementDoc');
+	Route::get('/edit-procDocumnt/{id}', 'BudgetController@edit_procDoc');
+	// Route::get('/procurementDocument', function () {
+	//     return view('adminView.procurementDocument');
+	// });
+
 	Route::post('/nsb_budget', 'BudgetController@nsbBudget');
-
-	Route::get('/nSbBudget', function () {
-	    return view('adminView.nSbBudget');
-	});
-	Route::post('/donation_page', 'BudgetController@donation');
-	Route::get('/donations', function () {
-	    return view('adminView.donations');
-	});
-	Route::post('/procurement_Document', 'BudgetController@procurementDocument');
-	Route::get('/procurementDocument', function () {
-	    return view('adminView.procurementDocument');
-	});
-
 	Route::get('/nSbBudget', 'BudgetController@nsbBudgetDetails');
 	Route::get('/Dlete_nSbBudget/{id}','BudgetController@deleteNsbBudget');
+	Route::get('/edit-nsbBudget/{id}','BudgetController@edit_nsbBuget');
 	// Route::get('/nSbBudget', function () {
 	//     return view('adminView.nSbBudget');
 	// });
 	Route::post('/donation_page', 'BudgetController@donation');
 	Route::get('/donations', 'BudgetController@donationDetails');
 	Route::get('/Dlete_Donation/{id}','BudgetController@deleteDonation');
+	Route::get('/edit-donation/{id}','BudgetController@edit_donation');
 	// Route::get('/donations', function () {
 	    // return view('adminView.donations');
 	// });
-	Route::match(['post','get'], '/procurementDocument', 'BudgetController@procurementDocumnt');
+	// Route::match(['post','get'], '/procurementDocument', 'BudgetController@procurementDocumnt');
 	// Route::get('/procurementDocument', 'BudgetController@procurementDocumentDetail');
 	// Route::get('/procurementDocument', function () {
 	//     return view('adminView.procurementDocument');
 	// });
 	Route::post('/procurement_process', 'BudgetController@procurementProcess');
-	Route::get('/procurementProcess', function () {
-	    return view('adminView.procurementProcess');
-	});
+	Route::get('/procurementProcess', 'BudgetController@show_procProcess');
+	Route::get('/delete-procProcess/{id}', 'BudgetController@delete_procProcess');
+	Route::get('/edit-procProcess/{id}', 'BudgetController@edit_procprocess');
+	// Route::get('/procurementProcess', function () {
+	//     return view('adminView.procurementProcess');
+	// });
 	Route::post('/contractor_detail', 'Miscellaneous@contractorsDetail');
-	Route::get('/contractorDetail', function () {
-	    return view('adminView.contractorDetail');
-	});
+	Route::get('/contractorDetail', 'Miscellaneous@show_contractor');
+	Route::get('/delete-contractor/{id}', 'Miscellaneous@delete_contractor');
+	Route::get('/edit-contractor/{id}', 'Miscellaneous@edit_contractor');
+	// Route::get('/contractorDetail', function () {
+	//     return view('adminView.contractorDetail');
+	// });
 	Route::get('/photoRecord', function () {
 	    return view('adminView.photoRecord');
 	});

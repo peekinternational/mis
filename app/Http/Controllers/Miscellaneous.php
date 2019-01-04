@@ -98,18 +98,64 @@ class Miscellaneous extends Controller
 
     public function contractorsDetail(Request $request)
     {
-        if($request->session()->has('u_session')){
-            $contractorDetail = $request->all();
+      if($request->session()->has('u_session')){
+        $id = $request->input('id');
+          $contractorDetail = $request->all();
+          if($id == ''){
             $contractorInfo = DB::table('contractors')->insert($contractorDetail);
             $request->session()->put('contractorD', 'Contrator Data Saved Successfully');
-            return view('adminView.contractorDetail');
-        }
-        else{
-            return redirect('/');
-        }
+          }else{
+            $updatecontractorInfo = DB::table('contractors')->where('id', $id)->update($contractorDetail);
+            $request->session()->put('contractorD', 'Contrator Data updated Successfully');
+          }
+          $showcontrct = DB::table('contractors')->paginate(10);
+          return redirect('adminView/contractorDetail');
+      }
+      else{
+          return redirect('/');
+      }
         
     }
 
+    public function show_contractor(Request $request)
+    {
+      if($request->session()->has('u_session')){
+          $showcontrct = DB::table('contractors')->paginate(10);
+       
+          // dd($showcontrct);
+
+          return view('adminView.contractorDetail', compact('showcontrct'));
+      }else{
+          return redirect('/');
+      }
+    }
+
+    public function delete_contractor(Request $request, $id)
+    {
+      if($request->session()->has('u_session')){
+          $deletedoc = DB::table('contractors')->where('id', $id)->delete();
+
+          echo $deletedoc;
+      }else{
+          return redirect('/');
+      }
+    }
+
+
+    public function edit_contractor(Request $request, $id)
+    {
+      // dd($id);
+      if($request->session()->has('u_session')){
+
+       // dd($userinfo);
+       $data=DB::table('contractors')->where('id', $id)->first();
+       // dd($data);
+        return view('adminView.edit-contrator',compact('data'));
+      }else {
+        return redirect('/accounts/login');
+      }
+
+    }
 
     public function assignedTask(Request $request)
     {

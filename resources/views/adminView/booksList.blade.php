@@ -54,7 +54,7 @@
                     <td>{{$booklist->membershipRecord}}</td>
                     <td>{{$booklist->totalBooks}}</td>
                     <td>
-                      <a href=""><i class="fa fa-pencil"></i></a> &nbsp;
+                      <a href="{{url('adminView/edit-booklist/'.$booklist->id)}}"><i class="fa fa-pencil"></i></a> &nbsp;
                       <a href="" data-toggle="modal" onclick="delete_booklist('{{$booklist->id}}');"><i class="fa fa-trash text-danger"></i></a>
                     </td>
                   </tr>
@@ -70,7 +70,7 @@
         </div>
         <!-- End View -->
         <div class="box box-primary" id="bookListForm" style="display: none;">
-            <h3 class="box-title">Library Stock/Accession Register</h3>
+            <h3 class="box-title">Book Lists</h3>
           <!-- form start --><br>
           <form role="form" method="Post" action="{{url('adminView/book_list')}}">
             {{ csrf_field() }}

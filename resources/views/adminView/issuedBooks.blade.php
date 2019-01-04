@@ -54,7 +54,7 @@
                     <td>{{$issuedBooks->receiptNo}}</td>
                     <td>{{$issuedBooks->librarianInitials}}</td>
                     <td>
-                      <a href=""><i class="fa fa-pencil"></i></a> &nbsp;
+                      <a href="{{url('adminView/edit-issuedbooks/'.$issuedBooks->id)}}"><i class="fa fa-pencil"></i></a> &nbsp;
                       <a href="" data-toggle="modal" onclick="delete_issuedBooks('{{$issuedBooks->id}}');"><i class="fa fa-trash text-danger"></i></a>
                     </td>
                   </tr>

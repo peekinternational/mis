@@ -33,7 +33,7 @@
                     <td>{{$classTimeTable->subject}}</td>
                     <td>{{$classTimeTable->time}}</td>
                     <td>
-                      <a href=""><i class="fa fa-pencil"></i></a> &nbsp;
+                      <a href="{{url('/adminView/edit-classTime-table/'.$classTimeTable->id)}}"><i class="fa fa-pencil"></i></a> &nbsp;
                       <a href="" data-toggle="modal" onclick="delete_classTimeTable('{{$classTimeTable->id}}');"><i class="fa fa-trash text-danger"></i></a>
                     </td>
                   </tr>

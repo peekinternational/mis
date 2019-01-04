@@ -52,12 +52,9 @@
                         <td>{{$salryBudget->consumed}}</td>
                         <td>{{$salryBudget->balance}}</td>
                         <td>
-                          <a href=""><i class="fa fa-pencil"></i></a> &nbsp;
-<<<<<<< HEAD
-                          <a href="" data-toggle="modal" onclick="delete_salartBudget('{{$salryBudget->id}}');"><i class="fa fa-trash text-danger"></i></a>
-=======
+                          <a href="{{url('adminView/edit-salarybudget/'.$salryBudget->id)}}"><i class="fa fa-pencil"></i></a> &nbsp;
+
                           <a href="" data-toggle="modal" onclick="delete_salaryBudget('{{$salryBudget->id}}');"><i class="fa fa-trash text-danger"></i></a>
->>>>>>> f7bbf2ca0d51829353daca26c61842ad66595bf7
                         </td>
                       </tr>
                   @endforeach
@@ -67,11 +64,8 @@
               <div class="text-right pagination-table"><?php echo $showSalaryBudget->render(); ?></div>
             </div>
             <!-- End View -->
-<<<<<<< HEAD
             <div class="box box-primary" id="salaryBudgetForm" style="display: none;">
-=======
-            <div class="box box-primary">
->>>>>>> f7bbf2ca0d51829353daca26c61842ad66595bf7
+
                 <h3 class="box-title">Salary Budget</h3>
               <!-- form start --><br>
               <form role="form" method="Post" action="{{url('adminView/salary_budget')}}">
@@ -130,7 +124,7 @@
             </div>
             @endif
             <!-- View -->
-            <h3><strong>Excess & Surrender Budget Record</strong><button class="fa-btn btn-1 btn-1e circle-btn-add pull-right" id="addsalryBudget"><i class="fa fa-plus"></i></button></h3><br>
+            <h3><strong>Excess & Surrender Budget Record</strong><button class="fa-btn btn-1 btn-1e circle-btn-add pull-right" id="addExcessBudget"><i class="fa fa-plus"></i></button></h3><br>
             <div class="table-responsive" style="display: block; overflow-x: auto; white-space: nowrap; border:1px solid lightgray;">
               <table class="table table-hover stdnt-table previousTables" id="previousTable">
                 <thead>
@@ -151,34 +145,23 @@
                   <tbody>
                     @if(count($showExcessBudget)>0)
                   @foreach($showExcessBudget as $excessBudget)
-<<<<<<< HEAD
+
                       <tr id="tbl_show{{$excessBudget->id}}">
-                        <td>{{$excessBudget->id}}</td>
-                        <td>{{$excessBudget->DdoNo}}</td>
-                        <td>{{$excessBudget->budgetYear}}</td>
-                        <td>{{$excessBudget->description}}</td>]
-                        <td>{{$excessBudget->allocatedBudget}}</td>]
-                        <td>{{$excessBudget->released}}</td>]
-=======
-                      <tr id="tbl_showExcess{{$excessBudget->id}}">
                         <td>{{$excessBudget->id}}</td>
                         <td>{{$excessBudget->DdoNo}}</td>
                         <td>{{$excessBudget->budgetYear}}</td>
                         <td>{{$excessBudget->description}}</td>
                         <td>{{$excessBudget->allocatedBudget}}</td>
                         <td>{{$excessBudget->released}}</td>
->>>>>>> f7bbf2ca0d51829353daca26c61842ad66595bf7
+
                         <td>{{$excessBudget->consumed}}</td>
                         <td>{{$excessBudget->excess}}</td>
                         <td>{{$excessBudget->surrender}}</td>
                         <td>{{$excessBudget->reallocation}}</td>
                         <td>
-                          <a href=""><i class="fa fa-pencil"></i></a> &nbsp;
-<<<<<<< HEAD
-                          <a href="" data-toggle="modal" onclick="delete_salartBudget('{{$excessBudget->id}}');"><i class="fa fa-trash text-danger"></i></a>
-=======
+                          <a href="{{url('adminView/edit-excessBudget/'.$excessBudget->id)}}"><i class="fa fa-pencil"></i></a> &nbsp;
                           <a href="" data-toggle="modal" onclick="delete_ExcessBudget('{{$excessBudget->id}}');"><i class="fa fa-trash text-danger"></i></a>
->>>>>>> f7bbf2ca0d51829353daca26c61842ad66595bf7
+
                         </td>
                       </tr>
                   @endforeach
@@ -188,7 +171,7 @@
               <div class="text-right pagination-table"><?php echo $showExcessBudget->render(); ?></div>
             </div>
             <!-- End View -->
-            <div class="box box-primary">
+            <div class="box box-primary" id="excessBudgetForm" style="display: none;">
                 <h3 class="box-title">Excess & Surrender</h3>
               <!-- form start --><br>
               <form role="form" method="Post" action="{{url('adminView/excess_budget')}}">
@@ -251,7 +234,7 @@
             </div>
             @endif
             <!-- View -->
-            <h3><strong>Contingent Budget Record</strong><button class="fa-btn btn-1 btn-1e circle-btn-add pull-right" id="addsalryBudget"><i class="fa fa-plus"></i></button></h3><br>
+            <h3><strong>Contingent Budget Record</strong><button class="fa-btn btn-1 btn-1e circle-btn-add pull-right" id="addContingentBudget"><i class="fa fa-plus"></i></button></h3><br>
             <div class="table-responsive" style="display: block; overflow-x: auto; white-space: nowrap; border:1px solid lightgray;">
               <table class="table table-hover stdnt-table previousTables" id="previousTable">
                 <thead>
@@ -271,11 +254,8 @@
                   <tbody>
                     @if(count($showContingentBudget)>0)
                   @foreach($showContingentBudget as $contingentBudget)
-<<<<<<< HEAD
-                      <tr id="tbl_show{{$contingentBudget->id}}">
-=======
+
                       <tr id="tbl_showcontingent{{$contingentBudget->id}}">
->>>>>>> f7bbf2ca0d51829353daca26c61842ad66595bf7
                         <td>{{$contingentBudget->id}}</td>
                         <td>{{$contingentBudget->conDdoNo}}</td>
                         <td>{{$contingentBudget->conBudgetYear}}</td>
@@ -286,12 +266,10 @@
                         <td>{{$contingentBudget->conConsumed}}</td>
                         <td>{{$contingentBudget->conBalance}}</td>
                         <td>
-                          <a href=""><i class="fa fa-pencil"></i></a> &nbsp;
-<<<<<<< HEAD
-                          <a href="" data-toggle="modal" onclick="delete_salartBudget('{{$contingentBudget->id}}');"><i class="fa fa-trash text-danger"></i></a>
-=======
+                          <a href="{{url('adminView/edit-contingentBudget/'.$contingentBudget->id)}}"><i class="fa fa-pencil"></i></a> &nbsp;
+
                           <a href="" data-toggle="modal" onclick="deleteContingentBudget('{{$contingentBudget->id}}');"><i class="fa fa-trash text-danger"></i></a>
->>>>>>> f7bbf2ca0d51829353daca26c61842ad66595bf7
+
                         </td>
                       </tr>
                   @endforeach
@@ -301,7 +279,7 @@
               <div class="text-right pagination-table"><?php echo $showContingentBudget->render(); ?></div>
             </div>
             <!-- End View -->
-            <div class="box box-primary">
+            <div class="box box-primary" id="contingentbudgetForm" style="display: none;">
                 <h3 class="box-title">Contingent Budget</h3>
               <!-- form start --><br>
               <form role="form" method="Post" action="{{url('adminView/contingent_budget')}}">
@@ -358,12 +336,18 @@
   </div>  
 </div>
 <!-- end main -->
-<<<<<<< HEAD
 <script>
   $('#addsalryBudget').click(function(){
     $('#salaryBudgetForm').toggle();
   });
 
+  $('#addExcessBudget').click(function(){
+    $('#excessBudgetForm').toggle();
+  });
+
+  $('#addContingentBudget').click(function(){
+    $('#contingentbudgetForm').toggle();
+  });
   function delete_salartBudget(id) {
     // alert(id);
       if (confirm('Are you sure want to delete this user')) {
@@ -380,52 +364,10 @@
       }
     }
 
-    $('#addpstvBtn').click(function(){
-      $('#postivBehavioursForm').toggle();
-    });
-
-    function delete_pstvBehv(id) {
-    // alert(id);
-      if (confirm('Are you sure want to delete this user')) {
-          $.ajax({
-            url: "{{url('adminView/deletePositiveBhv')}}/"+id,
-            success: function (response) {
-              console.log(response);
-              if (response == "1") {
-                $('#tbl_showPostv'+id).remove();
-
-              }
-            }
-          });
-      }
-    }
 </script>
-=======
-<script type="">
-  $('#addBtn').click(function(){
-    $('#admissionInqryForm').toggle();
-  });
 
-  function delete_salarBudget(id) {
-    // alert(id);
-      if(confirm('Are you sure want to delete this Record')) {
-        $.ajax({
-          url: "{{url('adminView/delete_salarybudget')}}/"+id,
-          success: function (response) {
-            // console.log(response);
-            if (response == "1") {
-              $('#tbl_show'+id).remove();
-
-            }
-          }
-        });
-      }
-    }
-</script>
-<script type="">
-  $('#addBtn').click(function(){
-    $('#admissionInqryForm').toggle();
-  });
+<script>
+ 
 
   function delete_ExcessBudget(id) {
     // alert(id);
@@ -459,6 +401,14 @@
     }
     
 </script>
-
->>>>>>> f7bbf2ca0d51829353daca26c61842ad66595bf7
+<script>
+  var url = window.location.href;
+      // alert(url);
+      var id = url.substring(url.lastIndexOf('?') + 1);
+      // alert(id);
+      if (id == 'salary') {
+        $('#personal-info').removeClass('active');
+        $('#addworkers').addClass('active');
+      }
+</script>
 @endsection

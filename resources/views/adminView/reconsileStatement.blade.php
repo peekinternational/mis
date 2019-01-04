@@ -45,7 +45,7 @@
                     <td>{{$statement->verifiedBy}}</td>
                     <td>{{$statement->principalName}}</td>
                     <td>
-                      <a href=""><i class="fa fa-pencil"></i></a> &nbsp;
+                      <a href="{{url('adminView/edit-statement/'.$statement->id)}}"><i class="fa fa-pencil"></i></a> &nbsp;
                       <a href="" data-toggle="modal" onclick="delete_statement('{{$statement->id}}');"><i class="fa fa-trash text-danger"></i></a>
                     </td>
                   </tr>

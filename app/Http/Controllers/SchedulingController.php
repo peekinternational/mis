@@ -89,25 +89,31 @@ class SchedulingController extends Controller
     public function schoolCouncil(Request $request)
     {
         if($request->session()->has('u_session')){
+          $id = $request->input('id');
             $schlCouncil = $request->all();
-
-            $councilMembr = DB::table('school_councils')->insert($schlCouncil);
+            if($id == ''){  
+              $councilMembr = DB::table('school_councils')->insert($schlCouncil);
+              $request->session()->put('scholCouncil', 'Data saved Successfully');
+            }else{
+              $update_council = DB::table('school_councils')->where('id', $id)->update($schlCouncil);
+              $request->session()->put('scholCouncil', 'Data Updated Successfully');
+            }
             $showRecord = DB::table('school_councils')->paginate(10);
-            $request->session()->put('scholCouncil', 'Data saved Successfully');
-            return view('adminView.schoolCouncil', compact('showRecord'));
+            return redirect('adminView/schoolCouncil');
         }else{
             redirect('/');
         }
     }
 
-    public function edit_communTools(Request $request, $id)
+    public function edit_schoolCouncil(Request $request, $id)
     {
       // dd($id);
       if($request->session()->has('u_session')){
 
        // dd($userinfo);
-       $data=DB::table('communication_tools')->where('id', $id)->first();
-        return view('adminView.edit-communicationTools',compact('data'));
+       $data=DB::table('school_councils')->where('id', $id)->first();
+       // dd($data);
+        return view('adminView.edit-schoolCouncil',compact('data'));
       }else {
         return redirect('/accounts/login');
       }
@@ -117,26 +123,26 @@ class SchedulingController extends Controller
     
     public function showSchoolCouncil(Request $request)
     {
-        if ($request->session()->has('u_session')) {
-            $showRecord = DB::table('school_councils')->paginate(10);
-            // dd($showRecord);
+      if ($request->session()->has('u_session')) {
+          $showRecord = DB::table('school_councils')->paginate(10);
+          // dd($showRecord);
 
-            return view('adminView.schoolCouncil', compact('showRecord'));
-        }else{
-            return redirect('/');
-        }
+          return view('adminView.schoolCouncil', compact('showRecord'));
+      }else{
+          return redirect('/');
+      }
     }
 
 
     public function deleteSchoolCouncil(Request $request, $id)
     {
-        if($request->session()->has('u_session')){
-            $deleteschoolConcil = DB::table('school_councils')->where('id', $id)->delete();
+      if($request->session()->has('u_session')){
+          $deleteschoolConcil = DB::table('school_councils')->where('id', $id)->delete();
 
-            echo $deleteschoolConcil;
-        }else{
-            return redirect('/');
-        }
+          echo $deleteschoolConcil;
+      }else{
+          return redirect('/');
+      }
     }
 
 
@@ -144,18 +150,37 @@ class SchedulingController extends Controller
     public function teacherTimeTable(Request $request)
     {
 
-        if($request->session()->has('u_session')){
-            $teacherTime = $request->all();
-
+      if($request->session()->has('u_session')){
+        $id = $request->input('id');
+          $teacherTime = $request->all();
+          if($id == ''){
             $insertTeacherTime = DB::table('teacher_timeTable')->insert($teacherTime);
-            $showRecord = DB::table('teacher_timeTable')->paginate(10);
             $request->session()->put('Teachertable', 'Data Inserted Successfully');
-            return view('adminView.teacherTimeTable', compact('showRecord'));
-        }else{
-            redirect('/');
-        }
+          }else{
+            $update_recrd = DB::table('teacher_timeTable')->where('id', $id)->update($teacherTime);
+            $request->session()->put('Teachertable', 'Data Updated Successfully');
+          }
+          $showRecord = DB::table('teacher_timeTable')->paginate(10);
+          return redirect('adminView/teacherTimeTable');
+      }else{
+          redirect('/');
+      }
     }
 
+    public function edit_teacherTimeTable(Request $request, $id)
+    {
+      // dd($id);
+      if($request->session()->has('u_session')){
+
+       // dd($userinfo);
+       $data=DB::table('teacher_timeTable')->where('id', $id)->first();
+       // dd($data);
+        return view('adminView.edit-teacherTime-table',compact('data'));
+      }else {
+        return redirect('/accounts/login');
+      }
+
+    }
 
     public function showTeacherTimeTable(Request $request)
     {
@@ -186,16 +211,37 @@ class SchedulingController extends Controller
     {
 
         if($request->session()->has('u_session')){
+          $id = $request->input('id');
             $classTime = $request->all();
-
-            $insertClassTime = DB::table('class_timeTables')->insert($classTime);
+            if($id == ''){
+              $insertClassTime = DB::table('class_timeTables')->insert($classTime);
+              $request->session()->put('classTable', 'Data Inserted Successfully');
+            }else{
+              $updateClassTime = DB::table('class_timeTables')->where('id', $id)->update($classTime);
+              $request->session()->put('classTable', 'Data Updated Successfully');
+            }
             $showRecord = DB::table('class_timeTables')->paginate(10);
-            $request->session()->put('classTable', 'Data Inserted Successfully');
-            return view('adminView.classTimeTable', compact('showRecord'));
+            return redirect('adminView/classTimeTable');
         }else{
             redirect('/');
         }
     }
+
+    public function edit_classTimeTable(Request $request, $id)
+    {
+      // dd($id);
+      if($request->session()->has('u_session')){
+
+       // dd($userinfo);
+       $data=DB::table('class_timeTables')->where('id', $id)->first();
+       // dd($data);
+        return view('adminView.edit-classTime-table',compact('data'));
+      }else {
+        return redirect('/accounts/login');
+      }
+
+    }
+
 
     public function showClassTimeTable(Request $request)
     {
@@ -224,15 +270,35 @@ class SchedulingController extends Controller
     public function meetingMinute(Request $request)
     {
         if($request->session()->has('u_session')){
+          $id = $request->input('id');
             $schlCouncil = $request->all();
-
-            $councilMembr = DB::table('meeting_minutes')->insert($schlCouncil);
+            if($id == ''){
+              $councilMembr = DB::table('meeting_minutes')->insert($schlCouncil);
+              $request->session()->put('meetingMinute', 'Data saved Successfully');
+            }else{
+              $councilMembr = DB::table('meeting_minutes')->where('id', $id)->update($schlCouncil);
+              $request->session()->put('meetingMinute', 'Data updated Successfully');
+            }
              $showRecord = DB::table('meeting_minutes')->paginate(10);
-            $request->session()->put('meetingMinute', 'Data saved Successfully');
-            return view('adminView.meetingMinutes', compact('showRecord'));
+            return redirect('adminView/meetingMinutes');
         }else{
             redirect('/');
         }
+    }
+
+    public function edit_meetingMinute(Request $request, $id)
+    {
+      // dd($id);
+      if($request->session()->has('u_session')){
+
+       // dd($userinfo);
+       $data=DB::table('meeting_minutes')->where('id', $id)->first();
+       // dd($data);
+        return view('adminView.edit-meetingMinutes',compact('data'));
+      }else {
+        return redirect('/accounts/login');
+      }
+
     }
 
     public function showMeetingMinutes(Request $request)
@@ -246,7 +312,6 @@ class SchedulingController extends Controller
             return redirect('/');
         }
     }
-
 
     public function deleteMeetingMinutes(Request $request, $id)
     {

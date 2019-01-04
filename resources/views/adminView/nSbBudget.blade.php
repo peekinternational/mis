@@ -12,10 +12,8 @@
           {{session()->get('nsb')}}
         </div>
         @endif
-<<<<<<< HEAD
-=======
         <!-- View -->
-            <h3><strong>Nsb Budget Detail</strong><button class="fa-btn btn-1 btn-1e circle-btn-add pull-right" id="addsalryBudget"><i class="fa fa-plus"></i></button></h3><br>
+            <h3><strong>Nsb Budget Detail</strong><button class="fa-btn btn-1 btn-1e circle-btn-add pull-right" id="addnsb"><i class="fa fa-plus"></i></button></h3><br>
             <div class="table-responsive" style="display: block; overflow-x: auto; white-space: nowrap; border:1px solid lightgray;">
               <table class="table table-hover stdnt-table previousTables" id="previousTable">
                 <thead>
@@ -46,7 +44,7 @@
                         <td>{{$shownsbBudget->consumed}}</td>
                         <td>{{$shownsbBudget->balance}}</td>
                         <td>
-                          <a href=""><i class="fa fa-pencil"></i></a> &nbsp;
+                          <a href="{{url('adminView/edit-nsbBudget/'.$shownsbBudget->id)}}"><i class="fa fa-pencil"></i></a> &nbsp;
                           <a href="" data-toggle="modal" onclick="delete_shownsbBudget('{{$shownsbBudget->id}}');"><i class="fa fa-trash text-danger"></i></a>
                         </td>
                       </tr>
@@ -57,8 +55,7 @@
               <div class="text-right pagination-table"><?php echo $showNsbBudget->render(); ?></div>
             </div>
             <!-- End View -->
->>>>>>> f7bbf2ca0d51829353daca26c61842ad66595bf7
-        <div class="box box-primary">
+        <div class="box box-primary" id="nsbForm" style="display: none;">
             <h3 class="box-title">NSB</h3>
           <!-- form start --><br>
           <form role="form" method="Post" action="{{url('adminView/nsb_budget')}}">
@@ -112,11 +109,9 @@
   </div>  
 </div>
 <!-- end main -->
-<<<<<<< HEAD
-=======
 <script type="">
-  $('#addBtn').click(function(){
-    $('#admissionInqryForm').toggle();
+  $('#addnsb').click(function(){
+    $('#nsbForm').toggle();
   });
 
   function delete_shownsbBudget(id) {
@@ -135,5 +130,4 @@
       }
     }
 </script>
->>>>>>> f7bbf2ca0d51829353daca26c61842ad66595bf7
 @endsection

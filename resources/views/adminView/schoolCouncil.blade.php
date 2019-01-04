@@ -13,7 +13,7 @@
         </div>
         @endif
         <!-- View -->
-        <h3><strong>Class wise time table</strong><button class="fa-btn btn-1 btn-1e circle-btn-add pull-right" id="addSchoolCouncil"><i class="fa fa-plus"></i></button></h3><br>
+        <h3><strong>School Council</strong><button class="fa-btn btn-1 btn-1e circle-btn-add pull-right" id="addSchoolCouncil"><i class="fa fa-plus"></i></button></h3><br>
         <div class="table-responsive" style="display: block; overflow-x: auto; white-space: nowrap; border:1px solid lightgray;">
           <table class="table table-hover stdnt-table">
             <thead>
@@ -38,7 +38,7 @@
                     <td>{{$schoolCouncil->designation}}</td>
                     <td>{{$schoolCouncil->address}}</td>
                     <td>
-                      <a href=""><i class="fa fa-pencil"></i></a> &nbsp;
+                      <a href="{{'edit-schoolCouncil/'.$schoolCouncil->id}}"><i class="fa fa-pencil"></i></a> &nbsp;
                       <a href="" data-toggle="modal" onclick="delete_schoolCouncil('{{$schoolCouncil->id}}');"><i class="fa fa-trash text-danger"></i></a>
                     </td>
                   </tr>

@@ -12,7 +12,52 @@
           {{session()->get('contractorD')}}
         </div>
         @endif
-        <div class="box box-primary">
+        <h3><strong>Procurement Process Detail</strong><button class="fa-btn btn-1 btn-1e circle-btn-add pull-right" id="addcontractr"><i class="fa fa-plus"></i></button></h3><br>
+          <div class="table-responsive" style="display: block; overflow-x: auto; white-space: nowrap; border:1px solid lightgray;">
+            <table class="table table-hover stdnt-table previousTables" id="previousTable">
+              <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Contractor Name</th>
+                      <th>Amount Per Month</th>
+                      <th>Period From</th>
+                      <th>Contractor CNIC</th>
+                      <th>Address</th>
+                      <th>Phone No</th>
+                      <th>Amount Received Date</th>
+                      <th>Final Payment</th>
+                      <th>Issued Receipt No</th>
+                      <th>Action</th>
+                      </tr>
+                </thead>
+                <tbody>
+                  @if(count($showcontrct)>0)
+                @foreach($showcontrct as $cntrtdata)
+                    <tr id="tbl_show{{$cntrtdata->id}}">
+                      <td>{{$cntrtdata->id}}</td>
+                      <td>{{$cntrtdata->contractorName}}</td>
+                      <td>{{$cntrtdata->amountPerMonth}}</td>
+                      <td>{{$cntrtdata->periodFrom}}</td>
+                      <td>{{$cntrtdata->contractorCNIC}}</td>
+                      <td>{{$cntrtdata->address}}</td>
+                      <td>{{$cntrtdata->phoneNo}}</td>
+                      <td>{{$cntrtdata->amountReceivedDate}}</td>
+                      <td>{{$cntrtdata->finalPayment}}</td>
+                      <td>{{$cntrtdata->issuedReceiptNo}}</td>
+
+                      <td>
+                        <a href="{{url('adminView/edit-contractor/'.$cntrtdata->id)}}"><i class="fa fa-pencil"></i></a> &nbsp;
+                        <a href="" data-toggle="modal" onclick="delete_contractor('{{$cntrtdata->id}}');"><i class="fa fa-trash text-danger"></i></a>
+                      </td>
+                    </tr>
+                @endforeach
+                @endif
+                </tbody>
+            </table>
+            <div class="text-right pagination-table"><?php echo $showcontrct->render(); ?></div>
+          </div>
+          <!-- End View -->
+        <div class="box box-primary" id="contractorForm" style="display: none;">
           <h3 class="box-title">Contractor Details</h3>
           <!-- form start --><br>
           <form role="form" method="Post" action="{{url('adminView/contractor_detail')}}">
@@ -66,4 +111,24 @@
   </div>  
 </div>
 <!-- end main -->
+<script>
+  $('#addcontractr').click(function(){
+    $('#contractorForm').toggle();
+  });
+
+  function delete_contractor(id)
+  {
+    if(confirm("Are you sure you want to delete employee logs")){
+      $.ajax({
+        url: "{{url('adminView/delete-contractor')}}/"+id,
+        success: function(response){
+          console.log(response);
+          if(response == "1"){
+            $('#tbl_show'+id).remove();
+          }
+        }
+      });
+    }
+  }
+</script>
 @endsection

@@ -36,7 +36,7 @@
                     <td>{{$meetingMinutes->approvel}}</td>
                     <td>{{$meetingMinutes->participatedMember}}</td>
                     <td>
-                      <a href=""><i class="fa fa-pencil"></i></a> &nbsp;
+                      <a href="{{url('/adminView/edit-meetingMinutes/'.$meetingMinutes->id)}}"><i class="fa fa-pencil"></i></a> &nbsp;
                       <a href="" data-toggle="modal" onclick="delete_meetingMinutes('{{$meetingMinutes->id}}');"><i class="fa fa-trash text-danger"></i></a>
                     </td>
                   </tr>
@@ -67,8 +67,8 @@
                 </div>
                 <div class="form-group">
                   <label for="designation">Approvel</label><br>
-                  <input type="checkbox" id="approved" name="approvel">Approved <br>
-                  <input type="checkbox" id="notApproved" name="approvel">Not Approved
+                  <input type="checkbox" id="approved" name="approvel" value="Approved">Approved <br>
+                  <input type="checkbox" id="notApproved" name="approvel" value="Not Approved">Not Approved
                 </div>
                 <div class="form-group">
                   <label for="memberParticipated">Member Participated</label>
