@@ -128,9 +128,9 @@ class Student extends Controller
        if($request->session()->has('u_session')){
 
          // dd($userinfo);
-         $user_get=DB::table('student_registrations')->where('id',$id)->first();
-         $studentInfo=DB::table('student_registrations')->where('id',$id)->get();
-         // dd($studentInfo);
+         // $user_get=DB::table('student_registrations')->where('id',$id)->first();
+         $studentInfo=DB::table('student_registrations')->where('id',$id)->first();
+         // dd($studentInfo->stdName);
          return view('adminView.editStudentRegistration',compact('user_get', 'studentInfo'));
        }else {
          return redirect('/accounts/login');
